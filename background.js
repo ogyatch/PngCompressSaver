@@ -1,13 +1,13 @@
 chrome.runtime.onInstalled.addListener(function () {
     chrome.contextMenus.create({
         id: "save-png",
-        title: "PNGで保存",
+        title: chrome.i18n.getMessage("save_png"),
         contexts: ["image"]
     });
 
     chrome.contextMenus.create({
         id: "save-png-compressed",
-        title: "PNGで保存（圧縮）",
+        title: chrome.i18n.getMessage("save_png_compressed"),
         contexts: ["image"]
     });
 });

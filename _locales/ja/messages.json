@@ -1,0 +1,8 @@
+{
+    "save_png": {
+        "message": "PNGで保存"
+    },
+    "save_png_compressed": {
+        "message": "PNGで保存（圧縮）"
+    }
+}

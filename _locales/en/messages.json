@@ -1,0 +1,8 @@
+{
+    "save_png": {
+        "message": "Save as PNG"
+    },
+    "save_png_compressed": {
+        "message": "Save as PNG (Compressed)"
+    }
+}

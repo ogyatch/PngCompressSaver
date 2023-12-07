@@ -3,6 +3,7 @@
     "name": "PngCompressSaver",
     "version": "1.0",
     "description": "Save images as PNG, with or without compression",
+    "default_locale": "en",
     "permissions": [
         "contextMenus",
         "activeTab",
@@ -24,8 +25,6 @@
                 "<all_urls>"
             ],
             "js": [
-                // "pako.min.js",
-                // "UPNG.js",
                 "content.js"
             ]
         }
