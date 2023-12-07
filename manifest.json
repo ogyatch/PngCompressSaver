@@ -1,0 +1,38 @@
+{
+    "manifest_version": 2,
+    "name": "PngCompressSaver",
+    "version": "1.0",
+    "description": "Save images as PNG, with or without compression",
+    "permissions": [
+        "contextMenus",
+        "activeTab",
+        "storage",
+        "downloads",
+        "<all_urls>"
+    ],
+    "background": {
+        "scripts": [
+            "pako.min.js",
+            "UPNG.js",
+            "background.js"
+        ],
+        "persistent": false
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                // "pako.min.js",
+                // "UPNG.js",
+                "content.js"
+            ]
+        }
+    ],
+    "icons": {
+        "16": "icons/icon16.png",
+        "48": "icons/icon48.png",
+        "128": "icons/icon128.png"
+    }
+}
