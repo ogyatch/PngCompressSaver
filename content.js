@@ -14,32 +14,27 @@ function processImageDataUrl(dataUrl, compress) {
         canvas.height = img.height;
         ctx.drawImage(img, 0, 0);
 
-        // Check if compression is needed
         if (compress) {
-            // Apply compression logic here
-            let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-            let compressedData = UPNG.encode([imageData.data.buffer], canvas.width, canvas.height, 256);
-            // Convert compressed data to Blob
-            let blob = new Blob([compressedData], { type: 'image/png' });
-            // Send Blob back to background script
-            sendImageBlobToBackground(blob);
+            compressAndSendImage(canvas);
         } else {
-            // If no compression, convert canvas to Blob
-            canvas.toBlob(function(blob) {
-                sendImageBlobToBackground(blob);
-            }, 'image/png');
+            canvas.toBlob(blob => sendImageBlobToBackground(blob), 'image/png');
         }
     };
     img.onerror = function(e) {
         console.error("Error in loading image: ", e);
+        // Optionally, send an error message back to the background script
     };
     img.src = dataUrl;
 }
 
-function sendImageBlobToBackground(blob) {
-    console.log("Sending blob to background script");
+function compressAndSendImage(canvas) {
+    let imageData = canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height);
+    let compressedData = UPNG.encode([imageData.data.buffer], canvas.width, canvas.height, 256);
+    let blob = new Blob([compressedData], { type: 'image/png' });
+    sendImageBlobToBackground(blob);
+}
 
-    // Convert blob to a data URL and send it to the background script
+function sendImageBlobToBackground(blob) {
     let reader = new FileReader();
     reader.onload = function() {
         chrome.runtime.sendMessage({
