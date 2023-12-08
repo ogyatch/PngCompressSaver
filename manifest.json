@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "name": "PngCompressSaver",
+    "name": "PNG Compress Saver",
     "version": "1.0",
     "description": "Save images as PNG, with or without compression",
     "default_locale": "en",
