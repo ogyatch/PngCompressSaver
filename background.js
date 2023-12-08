@@ -15,18 +15,36 @@ chrome.runtime.onInstalled.addListener(() => {
 });
 
 chrome.contextMenus.onClicked.addListener((info, tab) => {
-    console.log("Context menu clicked:", info, tab);
-
     if (info.menuItemId === "save-png" || info.menuItemId === "save-png-compressed") {
         if (tab && tab.id) {
-            chrome.tabs.sendMessage(tab.id, {
-                action: "processImage",
-                imageUrl: info.srcUrl,
-                compress: info.menuItemId === "save-png-compressed"
-            });
-            console.log("Message sent to content script");
+            fetch(info.srcUrl)
+                .then(response => response.blob())
+                .then(blob => {
+                    // Send the blob to the content script
+                    chrome.tabs.sendMessage(tab.id, {
+                        action: "processFetchedImage",
+                        imageBlob: blob,
+                        compress: info.menuItemId === "save-png-compressed"
+                    });
+                })
+                .catch(error => console.error('Error fetching image:', error));
         }
     }
+
+    fetch(info.srcUrl)
+        .then(response => response.blob())
+        .then(blob => {
+            let reader = new FileReader();
+            reader.onload = () => {
+                chrome.tabs.sendMessage(tab.id, {
+                    action: "processFetchedImage",
+                    imageDataUrl: reader.result, // Send as Data URL
+                    compress: info.menuItemId === "save-png-compressed"
+                });
+            };
+            reader.readAsDataURL(blob);
+        })
+        .catch(error => console.error('Error fetching image:', error));
 });
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
