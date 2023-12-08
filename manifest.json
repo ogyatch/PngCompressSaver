@@ -1,23 +1,28 @@
 {
-    "manifest_version": 2,
+    "manifest_version": 3,
     "name": "PngCompressSaver",
     "version": "1.0",
     "description": "Save images as PNG, with or without compression",
     "default_locale": "en",
+    "action": {
+        "default_icon": {
+            "16": "icons/icon16.png",
+            "48": "icons/icon48.png",
+            "128": "icons/icon128.png"
+        }
+    },
     "permissions": [
-        "contextMenus",
         "activeTab",
         "storage",
         "downloads",
+        "contextMenus",
+        "scripting"
+    ],
+    "host_permissions": [
         "<all_urls>"
     ],
     "background": {
-        "scripts": [
-            "pako.min.js",
-            "UPNG.js",
-            "background.js"
-        ],
-        "persistent": false
+        "service_worker": "background.js"
     },
     "content_scripts": [
         {
@@ -25,6 +30,8 @@
                 "<all_urls>"
             ],
             "js": [
+                "pako.min.js",
+                "UPNG.js",
                 "content.js"
             ]
         }
