@@ -1,13 +1,13 @@
 chrome.runtime.onInstalled.addListener(() => {
     chrome.contextMenus.create({
         id: "save-png",
-        title: "Save PNG",
+        title: "Save as PNG",
         contexts: ["image"]
     });
 
     chrome.contextMenus.create({
         id: "save-png-compressed",
-        title: "Save PNG Compressed",
+        title: "Save as PNG (Compressed)",
         contexts: ["image"]
     });
 });
