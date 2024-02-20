@@ -22,7 +22,6 @@ function processImageDataUrl(dataUrl, compress) {
     };
     img.onerror = function(e) {
         console.error("Error in loading image: ", e);
-        // Optionally, send an error message back to the background script
     };
     img.src = dataUrl;
 }
